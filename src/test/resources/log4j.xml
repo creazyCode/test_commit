@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p -%c{1} - %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="wlFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="debug"/>
+		<param name="File" value="../logs/wl.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p -%c{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="mybatis_sql" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="debug"/>
+		<param name="File" value="../logs/mybatis_sql.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p -%c{1} - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="wlErrorFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="warn"/>
+        <param name="File" value="../logs/wl_error.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p -%c{1} - %m%n" />
+		</layout>
+    </appender>
+    
+    <appender name="errorFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="warn"/>
+        <param name="File" value="../logs/error.log" />
+		<param name="Append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p -%c{1} - %m%n" />
+		</layout>
+    </appender>
+	
+	<logger name="com.mybatis" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="mybatis_sql"/>
+	</logger>
+	
+	<logger name="org.apache.ibatis" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="mybatis_sql"/>
+	</logger>
+
+	<logger name="java.sql.Connection" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="mybatis_sql"/>
+	</logger>
+
+	<logger name="java.sql.Statement" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="mybatis_sql"/>
+	</logger>
+
+	<logger name="java.sql.PreparedStatement" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="mybatis_sql"/>
+	</logger>
+
+	<logger name="java.sql.ResultSet" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="mybatis_sql"/>
+	</logger>
+
+	<logger name="org.apache">
+		<level value="error" />
+	</logger>
+	
+	<logger name="org.apache.http">
+		<level value="debug" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="debug" />
+	</logger>
+
+	<logger name="net.sourceforge">
+		<level value="error" />
+	</logger>
+	
+	<logger name="org.danga">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="com.welove">
+		<level value="debug" />
+		<appender-ref ref="wlFileAppender" />
+		<appender-ref ref="wlErrorFile" />
+	</logger>
+	
+	<root>
+		<priority value="debug" />
+	    <appender-ref ref="console"/>
+	    <appender-ref ref="errorFile" />
+	</root>
+
+</log4j:configuration>
